@@ -48,9 +48,11 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 
 		if(currentActionMode == null)
 			return;
+
 		if(adapter.getCheckedItemCount() == 0) {
 			currentActionMode.finish();
 		} else {
+			currentActionMode.getMenu().findItem(R.id.menuEdit).setVisible(adapter.getCheckedItemCount() == 1);
 			currentActionMode.setTitle("" + adapter.getCheckedItemCount() + " selected");
 		}
 
