@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/text_card_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_card_name" />
+    <EditText
+        android:id="@+id/text_card_owner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_card_owner" />
+    <Button
+        android:id="@+id/btn_scan_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/device_access_camera"
+        android:textSize="30dp"
+        android:text="@string/btn_scan" />
+    <EditText
+        android:id="@+id/text_card_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_card_type"
+        android:enabled="false" />
+    <EditText
+        android:id="@+id/text_card_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_card_number"
+        android:enabled="false" />
+
+</LinearLayout>

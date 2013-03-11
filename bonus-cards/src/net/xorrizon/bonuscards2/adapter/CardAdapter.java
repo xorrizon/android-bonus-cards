@@ -23,6 +23,7 @@ public class CardAdapter extends BaseAdapter {
 	private SortedSet<Integer> checkedItems = new TreeSet<Integer>();
 	private Context context;
 	private OnCheckedChangeListener onCheckedChangeListener;
+	private OnItemClickListener onItemClickListener;
 
 	private static class ViewHolder {
 		private CheckBox checkbox;
@@ -68,6 +69,7 @@ public class CardAdapter extends BaseAdapter {
 			holder = (ViewHolder) view.getTag();
 		}
 
+		holder.checkbox.setFocusable(false);
 		view.setClickable(true);
 		view.setFocusable(true);
 
@@ -88,6 +90,15 @@ public class CardAdapter extends BaseAdapter {
 				}
 			}
 		});
+
+		if(onItemClickListener != null) {
+			view.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					onItemClickListener.onItemClicked(position);
+				}
+			});
+		}
 
 		if (checkedItems.contains(position)) {
 			holder.checkbox.setChecked(true);
@@ -118,8 +129,16 @@ public class CardAdapter extends BaseAdapter {
 		this.onCheckedChangeListener = onCheckedChangeListener;
 	}
 
+	public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+		this.onItemClickListener = onItemClickListener;
+	}
+
 	public interface OnCheckedChangeListener {
 		public void onCheckedChange();
+	}
+
+	public interface OnItemClickListener {
+		public void onItemClicked(int position);
 	}
 
 }

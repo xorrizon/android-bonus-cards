@@ -31,6 +31,10 @@ public class CardContainer {
 		cardList.add(card);
 	}
 
+	public Card getCard(int position) {
+		return cardList.get(position);
+	}
+
 	public void removeCard(Card cardToRemove) {
 		cardList.remove(cardToRemove);
 	}

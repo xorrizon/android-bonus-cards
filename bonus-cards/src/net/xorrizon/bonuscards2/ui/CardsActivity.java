@@ -2,6 +2,7 @@ package net.xorrizon.bonuscards2.ui;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
@@ -14,7 +15,7 @@ import net.xorrizon.bonuscards2.CardContainer;
 import net.xorrizon.bonuscards2.R;
 import net.xorrizon.bonuscards2.adapter.CardAdapter;
 
-public class CardsActivity extends ListActivity implements CardAdapter.OnCheckedChangeListener {
+public class CardsActivity extends ListActivity implements CardAdapter.OnCheckedChangeListener, CardAdapter.OnItemClickListener {
 
 	private MenuItem searchItem;
 	private SearchView searchView;
@@ -28,6 +29,13 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 		adapter = CardContainer.instance().createAdapter(this);
 		getListView().setAdapter(adapter);
 		adapter.setOnCheckedChangeListener(this);
+		adapter.setOnItemClickListener(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -35,6 +43,17 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 		getMenuInflater().inflate(R.menu.cards_activity, menu);
 		searchItem = menu.findItem(R.id.menuActionSearch);
 		searchView = (SearchView) searchItem.getActionView();
+
+		MenuItem addCardItem = menu.findItem(R.id.menuAdd);
+		addCardItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				Intent intent = new Intent(CardsActivity.this, EditCardActivity.class);
+				startActivity(intent);
+				return true;
+			}
+		});
+
 		//searchView.setOnQueryTextListener(this);
 		return true;
 	}
@@ -56,6 +75,13 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 			currentActionMode.setTitle("" + adapter.getCheckedItemCount() + " selected");
 		}
 
+	}
+
+	@Override
+	public void onItemClicked(int position) {
+		Intent intent = new Intent(this, EditCardActivity.class);
+		intent.putExtra(EditCardActivity.EDIT_CARD_POSITION, position);
+		startActivity(intent);
 	}
 
 	private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
@@ -92,4 +118,5 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 			currentActionMode = null;
 		}
 	};
+
 }

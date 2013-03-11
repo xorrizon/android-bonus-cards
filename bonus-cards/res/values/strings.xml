@@ -4,4 +4,11 @@
     <string name="menu_add">Add</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_delete">Delete</string>
+    <string name="hint_card_name">Name</string>
+    <string name="hint_card_owner">Owner</string>
+    <string name="discard">Cancel</string>
+    <string name="done">Done</string>
+    <string name="hint_card_type">Type</string>
+    <string name="hint_card_number">Number</string>
+    <string name="btn_scan">Scan Code</string>
 </resources>
