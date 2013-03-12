@@ -12,15 +12,19 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.Toast;
 import net.xorrizon.bonuscards2.CardContainer;
+import net.xorrizon.bonuscards2.CardSerializer;
 import net.xorrizon.bonuscards2.R;
 import net.xorrizon.bonuscards2.adapter.CardAdapter;
+import net.xorrizon.bonuscards2.tasks.LoadCardsTask;
 
-public class CardsActivity extends ListActivity implements CardAdapter.OnCheckedChangeListener, CardAdapter.OnItemClickListener {
-
+public class CardsActivity extends ListActivity implements CardAdapter.OnCheckedChangeListener, CardAdapter.OnItemClickListener, LoadCardsTask.LoadCardsTaskCallback {
+	private static final String TAG = "CardsActivity";
 	private MenuItem searchItem;
 	private SearchView searchView;
 	private CardAdapter adapter;
 	private ActionMode currentActionMode = null;
+
+	private CardSerializer cardSerializer;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,23 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 		getListView().setAdapter(adapter);
 		adapter.setOnCheckedChangeListener(this);
 		adapter.setOnItemClickListener(this);
+		cardSerializer = new CardSerializer();
+
+		if(CardContainer.instance().getSize() > 0) {
+			//We still have our data, no need to load it from file
+			CardContainer.instance().deleteObservers();
+			CardContainer.instance().addObserver(cardSerializer);
+		} else {
+			new LoadCardsTask(cardSerializer, this).execute();
+		}
+	}
+
+	@Override
+	public void onLoadCardsTaskFinished() {
+		Log.d(TAG, "onLoadCardsTaskFinished called");
+		adapter.notifyDataSetChanged();
+		CardContainer.instance().deleteObservers();
+		CardContainer.instance().addObserver(cardSerializer);
 	}
 
 	@Override
@@ -118,5 +139,4 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 			currentActionMode = null;
 		}
 	};
-
 }

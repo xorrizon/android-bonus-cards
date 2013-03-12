@@ -71,7 +71,7 @@ public class Card {
 	}
 
 	public void setBarcode_content(String barcode_content) {
-		if(this.barcode_content.equals(barcode_content))
+		if(this.barcode_content != null && this.barcode_content.equals(barcode_content))
 			return;
 		this.barcode_content = barcode_content;
 		generateFilename();
