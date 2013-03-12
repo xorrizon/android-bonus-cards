@@ -73,8 +73,8 @@ public class CardAdapter extends BaseAdapter {
 		view.setClickable(true);
 		view.setFocusable(true);
 
-		holder.text_cardName.setText(card.name);
-		holder.text_cardOwner.setText(card.owner);
+		holder.text_cardName.setText(card.getName());
+		holder.text_cardOwner.setText(card.getOwner());
 
 
 		holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

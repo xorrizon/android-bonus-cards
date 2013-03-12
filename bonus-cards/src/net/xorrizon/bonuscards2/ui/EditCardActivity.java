@@ -116,17 +116,17 @@ public class EditCardActivity extends Activity implements View.OnClickListener {
 	}
 
 	private void loadCurrentCardToForm() {
-		edit_cardName.setText(currentCard.name);
-		edit_cardOwner.setText(currentCard.owner);
-		edit_cardNumber.setText(currentCard.barcode_content);
-		edit_cardType.setText(currentCard.barcode_type);
+		edit_cardName.setText(currentCard.getName());
+		edit_cardOwner.setText(currentCard.getOwner());
+		edit_cardNumber.setText(currentCard.getBarcode_content());
+		edit_cardType.setText(currentCard.getBarcode_type());
 	}
 
 	private void saveFormToCurrentCard() {
-		currentCard.name = edit_cardName.getText().toString();
-		currentCard.owner = edit_cardOwner.getText().toString();
-		currentCard.barcode_type = edit_cardType.getText().toString();
-		currentCard.barcode_content = edit_cardNumber.getText().toString();
+		currentCard.setName(edit_cardName.getText().toString());
+		currentCard.setOwner(edit_cardOwner.getText().toString());
+		currentCard.setBarcode_type(edit_cardType.getText().toString());
+		currentCard.setBarcode_content(edit_cardNumber.getText().toString());
 		if(isNewCard)
 			CardContainer.instance().addCard(currentCard);
 		isNewCard = false;
