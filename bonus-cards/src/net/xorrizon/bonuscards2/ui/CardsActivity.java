@@ -126,6 +126,7 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 					CardContainer.instance().removeCards(adapter.getCheckedItems());
 					adapter.clearCheckedItems();
 					adapter.notifyDataSetChanged();
+					mode.finish();
 					return true;
 				default:
 					return false;
