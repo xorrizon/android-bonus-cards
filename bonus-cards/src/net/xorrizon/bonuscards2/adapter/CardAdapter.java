@@ -113,6 +113,10 @@ public class CardAdapter extends BaseAdapter {
 		checkedItems.clear();
 	}
 
+	public SortedSet<Integer> getCheckedItemsPositions(){
+		return checkedItems;
+	}
+
 	public List<Card> getCheckedItems() {
 		List<Card> list = new ArrayList<Card>();
 		for(int position : checkedItems) {

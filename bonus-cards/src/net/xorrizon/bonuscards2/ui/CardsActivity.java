@@ -100,9 +100,9 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 
 	@Override
 	public void onItemClicked(int position) {
-		Intent intent = new Intent(this, EditCardActivity.class);
-		intent.putExtra(EditCardActivity.EDIT_CARD_POSITION, position);
-		startActivity(intent);
+//		Intent intent = new Intent(this, EditCardActivity.class);
+//		intent.putExtra(EditCardActivity.EDIT_CARD_POSITION, position);
+//		startActivity(intent);
 	}
 
 	private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
@@ -127,6 +127,12 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 					adapter.clearCheckedItems();
 					adapter.notifyDataSetChanged();
 					mode.finish();
+					return true;
+				case R.id.menuEdit:
+					int position = adapter.getCheckedItemsPositions().first().intValue();
+					Intent intent = new Intent(CardsActivity.this, EditCardActivity.class);
+					intent.putExtra(EditCardActivity.EDIT_CARD_POSITION, position);
+					startActivity(intent);
 					return true;
 				default:
 					return false;
