@@ -16,6 +16,7 @@
         <activity android:name=".ui.EditCardActivity">
 
         </activity>
+        <activity android:name=".ui.ViewCardActivity" android:screenOrientation="portrait"/>
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

@@ -100,9 +100,9 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 
 	@Override
 	public void onItemClicked(int position) {
-//		Intent intent = new Intent(this, EditCardActivity.class);
-//		intent.putExtra(EditCardActivity.EDIT_CARD_POSITION, position);
-//		startActivity(intent);
+		Intent intent = new Intent(this, ViewCardActivity.class);
+		intent.putExtra(ViewCardActivity.VIEW_CARD_POSITION, position);
+		startActivity(intent);
 	}
 
 	private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
