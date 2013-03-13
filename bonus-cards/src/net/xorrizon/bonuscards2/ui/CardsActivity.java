@@ -3,19 +3,24 @@ package net.xorrizon.bonuscards2.ui;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.*;
 import android.widget.SearchView;
+import android.widget.ShareActionProvider;
 import android.widget.Toast;
+import net.xorrizon.bonuscards2.Card;
 import net.xorrizon.bonuscards2.CardContainer;
 import net.xorrizon.bonuscards2.CardSerializer;
 import net.xorrizon.bonuscards2.R;
 import net.xorrizon.bonuscards2.adapter.CardAdapter;
 import net.xorrizon.bonuscards2.tasks.LoadCardsTask;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 
 public class CardsActivity extends ListActivity implements CardAdapter.OnCheckedChangeListener, CardAdapter.OnItemClickListener, LoadCardsTask.LoadCardsTaskCallback {
 	private static final String TAG = "CardsActivity";
@@ -107,12 +112,55 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 		startActivity(intent);
 	}
 
+	private void shareCards(List<Card> cards) {
+		String json = CardSerializer.cardsToJson(cards);
+		File tempFile = new File(getExternalFilesDir(null), "share_cards.bc");
+		if(tempFile.exists())
+			tempFile.delete();
+		FileWriter fw;
+		try {
+			fw = new FileWriter(tempFile, false);
+			fw.write(json);
+			fw.flush();
+			fw.close();
+			Log.i(TAG, "Finished saving cards to file");
+		} catch (IOException e) {
+			Log.e(TAG, e.getMessage());
+			return;
+		}
+
+		Uri uri = Uri.fromFile(tempFile);
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("application/bonuscards");
+
+		//intent.putExtra(Intent.EXTRA_TEXT, json);
+		intent.putExtra(Intent.EXTRA_STREAM, uri);
+
+		startActivity(Intent.createChooser(intent, "Share cards..."));
+//		shareIntent.putExtra(Intent.EXTRA_TEXT,
+//				"http://android-er.blogspot.com/");
+
+	}
+
 	private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+		private ShareActionProvider shareActionProvider;
+
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			MenuInflater inflater = mode.getMenuInflater();
 			inflater.inflate(R.menu.cards_activity_actionmode, menu);
 			currentActionMode = mode;
+
+			MenuItem shareItem = menu.findItem(R.id.menu_item_share);
+			shareItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(MenuItem item) {
+					List<Card> cards = adapter.getCheckedItems();
+					shareCards(cards);
+					return true;
+				}
+			});
+
 			return true;
 		}
 
