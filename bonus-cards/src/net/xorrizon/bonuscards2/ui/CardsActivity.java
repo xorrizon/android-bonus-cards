@@ -65,6 +65,8 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 		searchItem = menu.findItem(R.id.menuActionSearch);
 		searchView = (SearchView) searchItem.getActionView();
 
+		searchItem.setVisible(false); //@TODO Implement
+
 		MenuItem addCardItem = menu.findItem(R.id.menuAdd);
 		addCardItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 			@Override
