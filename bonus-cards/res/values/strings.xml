@@ -12,4 +12,6 @@
     <string name="hint_card_number">Number</string>
     <string name="btn_scan">Scan Code</string>
     <string name="menu_share">Share</string>
+    <string name="text_import_cards">Import Cards?</string>
+    <string name="button_import_cards">Import Cards</string>
 </resources>

@@ -44,8 +44,7 @@ public class CardSerializer implements Observer {
 		}
 	}
 
-	public List<Card> loadCardsFromFile() {
-		File file = new File(BonusCardsApplication.getAppContext().getExternalFilesDir(null), filename);
+	public List<Card> loadCardsFromFile(File file) {
 		if(file == null || !file.exists()){
 			Log.i(TAG, "Cannot load cards, file does not exist");
 			return null;
@@ -67,6 +66,11 @@ public class CardSerializer implements Observer {
 		}
 		Log.i(TAG, "Finished loading cards from file");
 		return jsonToCards(json);
+	}
+
+	public List<Card> loadCardsFromFile() {
+		File file = new File(BonusCardsApplication.getAppContext().getExternalFilesDir(null), filename);
+		return loadCardsFromFile(file);
 	}
 
 }

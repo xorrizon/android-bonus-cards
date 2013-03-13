@@ -27,6 +27,11 @@ public class Card {
 	}
 
 	@Override
+	public String toString() {
+		return name + ", " + owner + ", " + barcode_content;
+	}
+
+	@Override
 	public boolean equals(Object other) {
 		if (other == null) return false;
 		if (other == this) return true;

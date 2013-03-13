@@ -114,7 +114,7 @@ public class CardsActivity extends ListActivity implements CardAdapter.OnChecked
 
 	private void shareCards(List<Card> cards) {
 		String json = CardSerializer.cardsToJson(cards);
-		File tempFile = new File(getExternalFilesDir(null), "share_cards.bc");
+		File tempFile = new File(getExternalFilesDir(null), "share_cards.boca");
 		if(tempFile.exists())
 			tempFile.delete();
 		FileWriter fw;

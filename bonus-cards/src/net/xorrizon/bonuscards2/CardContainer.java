@@ -42,6 +42,14 @@ public class CardContainer extends Observable {
 		notifyObservers();
 	}
 
+	public void addCards(List<Card> cards) {
+		cardList_lock.lock();
+		cardList.addAll(cards);
+		cardList_lock.unlock();
+		setChanged();
+		notifyObservers();
+	}
+
 	public Card getCard(int position) {
 		return cardList.get(position);
 	}
