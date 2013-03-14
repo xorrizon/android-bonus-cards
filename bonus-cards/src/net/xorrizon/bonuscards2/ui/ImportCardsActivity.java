@@ -39,9 +39,13 @@ public class ImportCardsActivity extends Activity implements LoadCardsTask.LoadC
 
 		Log.d("ImportCardsActivity", intent.getAction());
 		Log.d("ImportCardsActivity", intent.getType());
-		Log.d("ImportCardsActivity", intent.getDataString());
+//		Log.d("ImportCardsActivity", intent.getDataString());
 
-		Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+		Uri uri;
+
+		uri = intent.getParcelableExtra(Intent.EXTRA_STREAM); //Direct share
+		if(uri == null)
+			uri = intent.getData(); //Share via downloaded file
 		Log.d("ImportCardsActivity", "uri: " + uri.getPath());
 		File file = new File(uri.getPath());
 		cardsToImport = new CardSerializer().loadCardsFromFile(file);
