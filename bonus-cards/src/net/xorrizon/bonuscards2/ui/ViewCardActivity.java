@@ -51,7 +51,7 @@ public class ViewCardActivity extends Activity {
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
-		int width = size.x;
+		int width = (int)(size.x * 0.9);
 		int height = size.y / 2;
 
 		Bitmap image;

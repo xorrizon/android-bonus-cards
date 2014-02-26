@@ -16,7 +16,7 @@
         <activity android:name=".ui.EditCardActivity">
 
         </activity>
-        <activity android:name=".ui.ViewCardActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ViewCardActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light"/>
         <activity android:name=".ui.ImportCardsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
